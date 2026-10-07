@@ -166,14 +166,6 @@ Instruções dos pods, Services, NodePorts e Secrets: **[k8s/README.md](k8s/READ
 
 Resumo: namespace `dotnet`; pods `postgres`, `nats`, `nats-ui`, `api`, `frontend`; NodePorts 30081 (API), 30085 (front), 30082 (NATS UI). Secrets só no cluster, a partir dos `*.example.yaml`.
 
-## Segurança deste repositório
-
-- Não há chaves de API, senhas, `.env` preenchido, `venv` nem `appsettings.Development.json`.
-- `*-secret.example.yaml` e `.env.example` têm placeholders vazios ou `REPLACE_ME`.
-- Os repositórios privados `TecnologiaIntegrada/DOTNETAPI` e `TecnologiaIntegrada/autonomousaudit` concentram Actions e o deploy.
-
-Se for abrir um PR, recuse qualquer arquivo `.env`, `*.local.yaml` ou JSON com `Password` / `ApiKey` preenchidos.
-
 ## Licença e uso acadêmico
 
 Código apresentado para avaliação do Projeto Integrado / TCC (PUC Minas). O ambiente publicado de demonstração é o indicado nas URLs acima.
