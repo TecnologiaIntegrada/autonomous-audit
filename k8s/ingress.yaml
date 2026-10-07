@@ -1,0 +1,30 @@
+# Este cluster nao tem Ingress controller.
+# TLS/HTTPS fica no Cloudflare Tunnel (igual ao site e a API).
+#
+# Painel Cloudflare → Zero Trust → Tunnels → este host → Public Hostname:
+#   Subdomain: autonomousaudit
+#   Domain:    canada-software.com.br
+#   Type:      HTTP
+#   URL:       http://192.168.49.2:30085
+#
+# A API continua em:
+#   https://autonomousauditapi.canada-software.com.br  →  :30081
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: frontend
+  namespace: dotnet
+  annotations:
+    note: "Nao aplicar neste minikube. HTTPS e Cloudflare, origin NodePort 30085."
+spec:
+  rules:
+    - host: autonomousaudit.canada-software.com.br
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: frontend
+                port:
+                  number: 3000

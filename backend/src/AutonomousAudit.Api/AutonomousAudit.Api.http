@@ -1,0 +1,19 @@
+@AutonomousAudit.Api_HostAddress = http://localhost:5184
+
+### Health
+GET {{AutonomousAudit.Api_HostAddress}}/healthz
+
+### Upload de arquivo
+POST {{AutonomousAudit.Api_HostAddress}}/v1/arquivos
+Content-Type: multipart/form-data; boundary=----audit
+
+------audit
+Content-Disposition: form-data; name="usuario"
+
+remetente@canada-software.com.br
+------audit
+Content-Disposition: form-data; name="arquivo"; filename="exemplo.pdf"
+Content-Type: application/pdf
+
+< ./exemplo.pdf
+------audit--

@@ -1,0 +1,234 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: nats-data
+  namespace: dotnet
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: nats-nui-data
+  namespace: dotnet
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 256Mi
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nats-ui-nginx
+  namespace: dotnet
+data:
+  default.conf: |
+    server {
+      listen 80;
+      server_name _;
+
+      location /healthz {
+        auth_basic off;
+        default_type text/plain;
+        return 200 "ok\n";
+      }
+
+      location / {
+        auth_basic "NATS UI";
+        auth_basic_user_file /etc/nginx/htpasswd/htpasswd;
+        proxy_pass http://127.0.0.1:31311;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_read_timeout 3600s;
+      }
+    }
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nats
+  namespace: dotnet
+  labels:
+    app: nats
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nats
+  template:
+    metadata:
+      labels:
+        app: nats
+    spec:
+      containers:
+        - name: nats
+          image: nats:2-alpine
+          command: ["/bin/sh", "-c"]
+          args:
+            - exec nats-server --js --sd=/data --http_port=8222 --user "$NATS_USER" --pass "$NATS_PASSWORD"
+          env:
+            - name: TZ
+              value: America/Sao_Paulo
+            - name: NATS_USER
+              valueFrom:
+                secretKeyRef:
+                  name: nats-secret
+                  key: NATS_USER
+            - name: NATS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: nats-secret
+                  key: NATS_PASSWORD
+          ports:
+            - name: client
+              containerPort: 4222
+            - name: monitor
+              containerPort: 8222
+          resources:
+            requests:
+              cpu: 50m
+              memory: 64Mi
+            limits:
+              cpu: 500m
+              memory: 256Mi
+          volumeMounts:
+            - name: data
+              mountPath: /data
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: 8222
+            initialDelaySeconds: 3
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 8222
+            initialDelaySeconds: 10
+            periodSeconds: 10
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: nats-data
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nats
+  namespace: dotnet
+spec:
+  selector:
+    app: nats
+  ports:
+    - name: client
+      port: 4222
+      targetPort: 4222
+    - name: monitor
+      port: 8222
+      targetPort: 8222
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nats-ui
+  namespace: dotnet
+  labels:
+    app: nats-ui
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nats-ui
+  template:
+    metadata:
+      labels:
+        app: nats-ui
+    spec:
+      containers:
+        - name: nui
+          image: ghcr.io/nats-nui/nui:0.9.2
+          args:
+            - "--nats-cli-contexts=/nats-cli-contexts"
+          ports:
+            - containerPort: 31311
+          resources:
+            requests:
+              cpu: 50m
+              memory: 64Mi
+            limits:
+              cpu: 500m
+              memory: 256Mi
+          volumeMounts:
+            - name: nui-db
+              mountPath: /db
+            - name: nats-contexts
+              mountPath: /nats-cli-contexts
+              readOnly: true
+        - name: nginx
+          image: nginx:1.27-alpine
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              cpu: 20m
+              memory: 16Mi
+            limits:
+              cpu: 200m
+              memory: 64Mi
+          volumeMounts:
+            - name: nginx-conf
+              mountPath: /etc/nginx/conf.d
+              readOnly: true
+            - name: htpasswd
+              mountPath: /etc/nginx/htpasswd
+              readOnly: true
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 5
+      volumes:
+        - name: nui-db
+          persistentVolumeClaim:
+            claimName: nats-nui-data
+        - name: nats-contexts
+          secret:
+            secretName: nats-secret
+            items:
+              - key: dotnet.json
+                path: dotnet.json
+        - name: nginx-conf
+          configMap:
+            name: nats-ui-nginx
+        - name: htpasswd
+          secret:
+            secretName: nats-secret
+            items:
+              - key: htpasswd
+                path: htpasswd
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nats-ui
+  namespace: dotnet
+spec:
+  type: NodePort
+  selector:
+    app: nats-ui
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80
+      nodePort: 30082

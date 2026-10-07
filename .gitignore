@@ -1,0 +1,35 @@
+# Segredos e ambiente local
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.pfx
+secrets.json
+appsettings.Development.json
+appsettings.*.local.json
+*.local.yaml
+k8s/*-secret.local.yaml
+
+# Python / Node / .NET gerados
+venv/
+.venv/
+env/
+node_modules/
+.next/
+out/
+dist/
+bin/
+obj/
+TestResults/
+coverage/
+
+# IDE e SO
+.vs/
+.idea/
+.vscode/
+*.user
+*.suo
+Thumbs.db
+.DS_Store
+*.log
