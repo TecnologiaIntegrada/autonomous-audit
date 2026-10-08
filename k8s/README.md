@@ -4,6 +4,24 @@ Este diretório descreve os **pods e serviços** que sustentam a aplicação no 
 
 A publicação contínua (GitHub Actions + runner self-hosted) permanece nos repositórios **privados** de manutenção. Aqui o objetivo é documentar a topologia para avaliação e reprodução.
 
+## Fluxo entre os containers
+
+O navegador chega pelo Cloudflare Tunnel. O pod do frontend chama a API; a API persiste no PostgreSQL, publica e consome filas no NATS e fala com serviços externos (Perplexity, Dropbox, SMTP, Seq). A UI do NATS consulta o broker no cluster.
+
+```mermaid
+flowchart LR
+  U[Navegador] --> CF[Cloudflare Tunnel]
+  CF --> FE[Pod frontend<br/>Next.js :3000]
+  CF --> API[Pod API + workers<br/>ASP.NET :8080]
+  FE -->|HTTPS JSON| API
+  API --> PG[(Pod postgres)]
+  API --> NATS[Pod nats<br/>JetStream]
+  NATS -->|COMPRA_PROCESSAR| API
+  NUI[Pod nats-ui] --> NATS
+```
+
+HTTPS público: realizar via painel CF para exposição da API e do sistema via tunnelling (NodePorts 30081 e 30085).
+
 ## Pods
 
 | Recurso | Manifesto | Função | Exposição |
@@ -17,7 +35,7 @@ A publicação contínua (GitHub Actions + runner self-hosted) permanece nos rep
 
 Imagens da API e do frontend são construídas localmente (`imagePullPolicy: Never`). Tags de exemplo: `dotnet-api:latest` e `autonomous-audit-web:latest`.
 
-## Secrets (obrigatórios, fora do Git)
+## Secrets (obrigatórios)
 
 | Secret | Modelo | Conteúdo típico |
 | --- | --- | --- |
@@ -34,13 +52,11 @@ kubectl -n dotnet apply -f k8s/api-secret.local.yaml
 kubectl -n dotnet apply -f k8s/frontend-secret.local.yaml
 ```
 
-Não versione `*.local.yaml`.
-
 ## Ordem de aplicação
 
 ```bash
 kubectl apply -f k8s/namespace.yaml
-# secrets (arquivos locais, não commitados)
+# secrets (arquivos locais)
 kubectl apply -f k8s/postgres.yaml
 kubectl apply -f k8s/nats.yaml
 # construir imagens no Docker do cluster (minikube docker-env)

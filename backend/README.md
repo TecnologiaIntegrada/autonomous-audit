@@ -10,5 +10,3 @@ dotnet run --project src/AutonomousAudit.Api
 ```
 
 Swagger local: `http://localhost:5184/swagger`
-
-Não commite `appsettings.Development.json`, Secrets preenchidos ou arquivos `.env`.

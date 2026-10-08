@@ -10,48 +10,59 @@ Este repositório é a **apresentação pública do código** (TCC / avaliação
 | --- | --- |
 | Interface | https://autonomousaudit.canada-software.com.br/ |
 | API (Swagger) | https://autonomousauditapi.canada-software.com.br/swagger/index.html |
+| Protótipo navegável | https://autonomousaudit.canada-software.com.br/prototipo/ |
 
 ## Vídeo de apresentação
 
-[![Vídeo de apresentação do Autonomous Audit](https://img.youtube.com/vi/VUK6SH74ulw/maxresdefault.jpg)](https://www.youtube.com/watch?v=VUK6SH74ulw)
+<p align="center">
+  <a href="https://www.youtube.com/watch?v=VUK6SH74ulw">
+    <img src="https://img.youtube.com/vi/VUK6SH74ulw/hqdefault.jpg" alt="Vídeo de apresentação do Autonomous Audit" width="560" height="315">
+  </a>
+</p>
 
-Assista em [YouTube](https://www.youtube.com/watch?v=VUK6SH74ulw).
+O GitHub não renderiza `<iframe>` no README (o player é removido na sanitização HTML). A miniatura acima abre o mesmo vídeo em [YouTube](https://www.youtube.com/watch?v=VUK6SH74ulw).
 
 ## O que o sistema faz
 
-1. Autentica o usuário (e-mail/senha, Google ou recuperação).
+Recibos em papel, fotos de celular e arquivos PDF de nota fiscal chegam desestruturados. Para conferir uma despesa, o operador precisa interpretar o documento e transcrever fornecedor ou prestador, itens, totais e campos fiscais. Esse lançamento manual gera nomes inconsistentes, cadastros duplicados e dificuldade para localizar o arquivo que originou o registro. O Autonomous Audit recebe o comprovante, extrai os dados em segundo plano e organiza a compra para consulta, correção nos cadastros e exportação de relatório, conservando a referência ao documento original.
+
+1. Autentica o usuário (e-mail/senha, Google).
 2. Recebe um ou mais arquivos (imagens ou PDF até 50 MB) em **Adicionar Recibo / NF**, inclusive por QR no celular.
 3. Enfileira o processamento (NATS), consulta o modelo de extração (Perplexity) e persiste a **compra** com itens, fornecedor/prestador e blocos fiscais quando houver NF-e/NFS-e.
 4. Mantém CRUDs de fornecedores/prestadores, produtos e serviços, com regras de exclusão por vínculo.
 5. Consulta e exporta o **relatório** de compras do período (rascunhos não entram).
 
-## Arquitetura (visão)
+### Fluxo de funcionamento
 
+```mermaid
+flowchart TD
+  A[Usuário envia recibo ou NF] --> B[API aceita o arquivo e grava a compra]
+  B --> C[Publica o trabalho na fila NATS]
+  C --> D[Worker prepara o documento]
+  D --> E[Perplexity extrai fornecedor, itens e totais]
+  E --> F[Compra, cadastros e arquivos persistidos]
+  F --> G[Usuário confere lista, cadastros e relatório]
 ```
-Navegador (Next.js)  →  API ASP.NET Core 8  →  PostgreSQL
-                              ↓
-                         NATS JetStream
-                              ↓
-              Perplexity · Dropbox · SMTP · Seq
-```
+
+## Arquitetura (visão)
 
 Front: Next.js 15, React 19, TypeScript, NextAuth.  
 Back: ASP.NET Core 8, Clean Architecture, MediatR, EF Core 8 / Npgsql.
+
+O fluxo entre os pods do cluster está em **[k8s/README.md](k8s/README.md)**.
 
 ## Estrutura deste repositório
 
 ```
 backend/     API .NET, Dockerfile e manifests de origem
 frontend/    Interface Next.js, Dockerfile e .env.example
-k8s/         Pods Kubernetes, Services e modelos de Secret (sem valores)
+k8s/         Pods Kubernetes, Services e modelos de Secret
 README.md    Este guia
 ```
 
-Não há pastas `venv`, `.env` preenchido, `node_modules`, `bin/` ou `obj/` versionadas.
-
 ## Dependências de terceiros
 
-Nenhuma chave entra no Git. Crie contas e preencha apenas arquivos **locais** (`appsettings.Development.json`, `.env.local`, `k8s/*-secret.local.yaml`).
+Crie contas e preencha apenas arquivos **locais** (`appsettings.Development.json`, `.env.local`, `k8s/*-secret.local.yaml`).
 
 | Serviço | Uso | Onde configurar |
 | --- | --- | --- |
@@ -64,9 +75,9 @@ Nenhuma chave entra no Git. Crie contas e preencha apenas arquivos **locais** (`
 | **SMSDev** | Código SMS (opcional) | `SmsDev:ApiKey` |
 | **Seq** | Logs estruturados (opcional) | `Seq:ServerUrl`, `Seq:ApiKey` |
 | **ViaCEP** | Autocompletar endereço (público, sem chave) | `ViaCep:BaseUrl` |
-| **Cloudflare Tunnel** | HTTPS público (produção) | Painel Cloudflare; não vai no código |
+| **Cloudflare Tunnel** | HTTPS público (produção) | Realizar via painel CF para exposição da api e sistema via tunelling |
 
-Também é necessário gerar **JWT SigningKey** (≥ 32 caracteres) e **NEXTAUTH_SECRET** (≥ 32 caracteres). Não reuse valores de produção neste clone.
+Também é necessário gerar **JWT SigningKey** (≥ 32 caracteres) e **NEXTAUTH_SECRET** (≥ 32 caracteres).
 
 ## Pré-requisitos locais
 
@@ -105,7 +116,7 @@ cd backend
 dotnet restore
 ```
 
-Crie `src/AutonomousAudit.Api/appsettings.Development.json` **localmente** (este arquivo está no `.gitignore`):
+Crie `src/AutonomousAudit.Api/appsettings.Development.json` **localmente**:
 
 ```json
 {
@@ -137,7 +148,7 @@ cd frontend
 cp .env.example .env.local
 ```
 
-Edite `.env.local` (não commite):
+Edite `.env.local`:
 
 ```
 NEXT_PUBLIC_API_BASE_URL=http://localhost:5184/
