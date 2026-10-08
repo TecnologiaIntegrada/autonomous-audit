@@ -6,11 +6,15 @@ Este repositório é a **apresentação pública do código** (TCC / avaliação
 
 **Repositório:** https://github.com/TecnologiaIntegrada/autonomous-audit
 
-| Ambiente publicado | URL |
-| --- | --- |
-| Interface | https://autonomousaudit.canada-software.com.br/ |
-| API (Swagger) | https://autonomousauditapi.canada-software.com.br/swagger/index.html |
-| Protótipo navegável | https://autonomousaudit.canada-software.com.br/prototipo/ |
+## Endereços
+
+| Recurso | URL | Descrição |
+| --- | --- | --- |
+| Interface | https://autonomousaudit.canada-software.com.br/ | Aplicação web publicada para avaliação. |
+| API (Swagger) | https://autonomousauditapi.canada-software.com.br/swagger/index.html | Documentação e contrato da API. |
+| Protótipo navegável | https://autonomousaudit.canada-software.com.br/prototipo/ | Protótipo HTML da interface, sem conexão com a API. |
+| Vídeo de apresentação do projeto | https://youtu.be/VUK6SH74ulw | Visão do projeto e da solução desenvolvida. |
+| Vídeo de apresentação do sistema (utilização) | https://youtu.be/ZBbwEPGrZdU | Ciclo de uso da aplicação: login, recibos, cadastros e relatório. |
 
 ## Vídeo de apresentação
 
