@@ -24,7 +24,7 @@ Este repositório é a **apresentação pública do código** (TCC / avaliação
   </a>
 </p>
 
-O GitHub não renderiza `<iframe>` no README (o player é removido na sanitização HTML). A miniatura acima abre o mesmo vídeo em [YouTube](https://www.youtube.com/watch?v=VUK6SH74ulw).
+A miniatura acima abre o mesmo vídeo em [YouTube](https://www.youtube.com/watch?v=VUK6SH74ulw).
 
 ## O que o sistema faz
 
