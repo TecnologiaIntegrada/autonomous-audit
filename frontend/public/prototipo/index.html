@@ -1,57 +1,802 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Autonomous Audit | Protótipo do TCC</title><style>
-:root{--navy:#152d48;--ink:#233549;--muted:#617184;--line:#dde4ea;--paper:#f3f6f9;--red:#ae3446}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.5 Arial,sans-serif}button,input,select,textarea{font:inherit}button,a,input,select{outline-offset:4px}button{cursor:pointer;border:1px solid var(--line);border-radius:8px;background:white;color:var(--ink);padding:10px 15px}button:hover{background:#e8eef4}button.primary{background:var(--navy);color:white;border-color:var(--navy)}button.danger{color:#a52539}.meta{height:42px;display:flex;justify-content:space-between;align-items:center;padding:0 25px;background:#e5ecf2;color:#354960;font-size:12px}.meta button{font-size:12px;padding:4px 10px}header{height:86px;background:white;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;padding:0 30px}.brand{display:flex;align-items:center;gap:12px;font-size:23px;font-weight:bold}.brand small{font-weight:normal}.brand img{width:38px;height:38px}.user{display:flex;gap:12px;align-items:center}.avatar{border-radius:50%;background:var(--navy);color:white;width:40px;height:40px;display:grid;place-items:center}.user small{display:block;color:var(--muted)}.shell{display:grid;grid-template-columns:248px 1fr;min-height:calc(100vh - 128px)}nav{background:white;padding:28px 15px;border-right:1px solid var(--line)}nav a{display:block;padding:13px 14px;margin-bottom:7px;border-radius:8px;color:#53657a;text-decoration:none;font-weight:600}nav a.active{background:var(--navy);color:white}nav a:hover{background:#e5ebf0;color:#152d48}main{padding:33px 37px;max-width:1500px;min-width:0}.kicker{letter-spacing:2px;font-size:11px;font-weight:bold;color:#708195}h1{font-size:29px;font-weight:600;margin:6px 0 23px}h2{font-size:20px;margin:0 0 16px}.toolbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:0 0 20px}.toolbar.right{justify-content:space-between}.panel{background:white;border:1px solid var(--line);border-radius:12px;padding:25px;margin-bottom:22px}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.card{padding:24px;border:1px solid var(--line);border-radius:12px;background:white}.card strong{font-size:29px;display:block;margin-top:9px}.muted{color:var(--muted)}table{width:100%;border-collapse:collapse;background:white;font-size:14px}th{text-align:left;font-size:12px;letter-spacing:.4px;color:#5c6e80;background:#edf2f6}td,th{border-bottom:1px solid var(--line);padding:15px 14px}td button{padding:7px 10px;margin-right:6px}.badge{background:#e0f1e8;color:#28744c;font-size:12px;border-radius:20px;padding:5px 10px;white-space:nowrap}.badge.wait{background:#fff1d6;color:#886022}.bar{height:10px;border-radius:5px;background:#e7edf2;margin:18px 0}.bar span{display:block;background:var(--navy);height:100%;width:12%;border-radius:5px}.upload{border:2px dashed #9cabb9;border-radius:10px;padding:34px;text-align:center}.upload input{max-width:100%;margin:16px 0}.row{display:grid;grid-template-columns:1fr 1fr;gap:18px}label{display:block;font-size:13px;font-weight:600}input,select,textarea{display:block;width:100%;padding:10px 12px;border:1px solid #bac7d1;border-radius:6px;background:white;color:var(--ink);margin:5px 0 15px}input[type=checkbox]{display:inline;width:auto}.success{background:#e7f2ec;border:1px solid #bcddc9;color:#256742;padding:12px;border-radius:7px}.error{color:#9f2439;background:#fff0f0;padding:11px;border-radius:7px}.tabs button.active{background:var(--navy);color:white}.tabs{display:flex;gap:10px;margin-bottom:20px}dialog{border:1px solid #c5d0d9;border-radius:14px;width:min(1080px,calc(100vw - 48px));max-width:calc(100vw - 48px);max-height:calc(100vh - 32px);overflow:auto;padding:30px;color:var(--ink)}dialog::backdrop{background:#0c233d66}.close{float:right;border:0;padding:0 10px;font-size:25px}dialog h2{font-size:24px;margin-top:2px}dialog .toolbar{margin-top:15px;margin-bottom:0}#notice:empty{display:none}#notice{margin-bottom:18px}footer{color:#647589;font-size:12px;margin-top:30px}.wire{--navy:#4a4a4a;--ink:#222;--muted:#555;--line:#999;--paper:#fff;filter:grayscale(1)}.wire .panel,.wire .card,.wire button,.wire nav a,.wire input,.wire select,.wire dialog{border-radius:0}.wire .brand img{visibility:hidden}.wire .panel,.wire .card{border:1px solid #777}.wire header{border-bottom:2px solid #333}.wire .badge{border:1px solid #555;background:white}.login{max-width:500px;margin:35px auto}.login h1{margin-top:0}.link{color:#163f6e;text-decoration:underline}.file-list{padding-left:20px}.empty{padding:28px;text-align:center;color:#647589}@media(max-width:850px){.shell{grid-template-columns:1fr}nav{display:flex;overflow:auto;padding:10px}nav a{white-space:nowrap;margin:0;font-size:12px}main{padding:20px}.cards{grid-template-columns:1fr}.row{grid-template-columns:1fr}header{padding:0 15px}.meta{height:auto;min-height:42px;padding:8px}.user small{display:none}table{font-size:12px}td,th{padding:10px 8px}}
-
-.cadastro-toolbar{display:flex;flex-wrap:nowrap;align-items:flex-end;justify-content:space-between;gap:16px}.cadastro-busca{width:50%;flex:0 0 50%;min-width:0}.cadastro-busca input{margin-bottom:0}.cadastro-toolbar .primary{flex:0 0 auto;white-space:nowrap}.catalog-panel{overflow:auto}.row>*{min-width:0}.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}.icon-open{display:inline-flex;padding:8px}.icon-open svg{width:22px;height:22px}
-</style></head><body>
-<div class="meta"><span>PROTÓTIPO ACADÊMICO · Dados fictícios · Ações simuladas, sem conexão com a API</span><div><button id="wire">Wireframe</button> <button id="reset">Reiniciar dados</button></div></div>
-<header><div class="brand"><img src="favicon.svg" alt=""><span>canada<small>software</small></span></div><div class="user"><span class="avatar">A</span><div>Avaliador<small>Perfil operacional de demonstração</small></div><button id="exit">Sair</button></div></header>
-<div class="shell"><nav id="nav"></nav><main><div class="kicker">AUTONOMOUS AUDIT</div><h1 id="title"></h1><div id="notice" role="status"></div><div id="content"></div><footer>Projeto Integrado · Alexandre Novaes Iosimura · Navegação e regras essenciais do MVP</footer></main></div>
-<dialog id="editor"><button class="close" aria-label="Fechar" onclick="this.closest('dialog').close()">×</button><h2 id="modal-title"></h2><p class="muted">Preencha os dados e confirme para atualizar a demonstração.</p><form id="edit-form"><div id="fields"></div><div id="form-error" role="alert"></div><div class="toolbar"><button class="primary" type="submit">Salvar</button><button id="research-supplier" type="button" hidden title="Pesquisar dados da empresa na internet (simulação)">Pesquisar na internet</button><button type="button" onclick="this.closest('dialog').close()">Cancelar</button></div></form></dialog>
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Autonomous Audit | Protótipo do TCC</title>
+<style>
+:root{--forest:#10233e;--navy:#152d48;--ink:#1d2c42;--muted:#758093;--line:#dce1e9;--paper:#f7f8fb;--red:#ae3446}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.5 Arial,sans-serif}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--ink);padding:10px 15px}
+button:hover{background:#eef3f9}
+button.primary,button.primary-button{background:var(--forest);color:#fff;border-color:var(--forest)}
+button.primary:hover,button.primary-button:hover{background:#1a3658}
+button.danger,button.danger-button{color:#a52539;border-color:#e3b4bc;background:#fff}
+button.danger:hover,button.danger-button:hover{background:#fff0f0}
+button.ghost,button.ghost-button{background:#fff}
+button:disabled{opacity:.45;cursor:not-allowed}
+a{color:var(--forest)}
+.meta{min-height:42px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:8px 25px;background:#e5ecf2;color:#354960;font-size:12px}
+.meta button{font-size:12px;padding:4px 10px}
+header.top{height:86px;background:#fff;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;padding:0 30px}
+.brand{display:flex;align-items:center;gap:12px;font-size:23px;font-weight:800;letter-spacing:-.5px;color:var(--forest);text-decoration:none}
+.brand small{display:block;font-weight:400;font-size:11px;letter-spacing:4px}
+.brand img{width:40px;height:40px}
+.user-menu{position:relative}
+.user-menu-trigger{display:flex;align-items:center;gap:12px;background:transparent;border:1px solid transparent;border-radius:12px;padding:4px 8px 4px 4px;max-width:min(420px,52vw);text-align:left}
+.user-menu-trigger:hover,.user-menu-trigger[aria-expanded="true"]{background:#fff;border-color:var(--line)}
+.avatar{border-radius:50%;background:var(--forest);color:#fff;width:40px;height:40px;display:grid;place-items:center;flex:0 0 auto}
+.user-copy strong{display:block}
+.user-copy span{display:block;color:var(--muted);font-size:13px}
+.caret{color:#becbdd;font-size:12px}
+.user-menu-panel{position:absolute;right:0;top:calc(100% + 8px);min-width:220px;background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 12px 32px #10233e24;padding:8px;z-index:30}
+.user-menu-panel a,.user-menu-panel button{display:block;width:100%;background:transparent;border:0;border-radius:8px;text-align:left;text-decoration:none;padding:10px 12px;color:var(--ink)}
+.user-menu-panel a:hover,.user-menu-panel button:hover{background:#eef3f9}
+.shell{display:grid;grid-template-columns:248px 1fr;min-height:calc(100vh - 128px)}
+nav{background:#fff;padding:28px 15px;border-right:1px solid var(--line)}
+nav a{display:block;padding:13px 14px;margin-bottom:7px;border-radius:8px;color:#53657a;text-decoration:none;font-weight:600}
+nav a.active{background:var(--forest);color:#fff}
+nav a:hover:not(.active){background:#e5ebf0;color:#152d48}
+main{padding:33px 37px;max-width:1500px;min-width:0}
+.kicker{letter-spacing:2px;font-size:11px;font-weight:bold;color:#708195}
+h1{font-size:29px;font-weight:600;margin:6px 0 18px}
+h2{font-size:20px;margin:0 0 16px}
+h3{font-size:16px;margin:18px 0 8px}
+.toolbar{display:flex;align-items:flex-end;gap:12px;flex-wrap:wrap;margin:0 0 20px}
+.toolbar.right{justify-content:space-between;align-items:center}
+.panel{background:#fff;border:1px solid var(--line);border-radius:12px;padding:25px;margin-bottom:22px}
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-bottom:18px}
+.kpi-grid.three{grid-template-columns:repeat(3,1fr)}
+.kpi{padding:24px;border:1px solid var(--line);border-radius:12px;background:#fff;text-decoration:none;color:inherit;display:block}
+.kpi span{color:var(--muted)}
+.kpi strong{font-size:29px;display:block;margin-top:9px}
+.muted{color:var(--muted)}
+table{width:100%;border-collapse:collapse;background:#fff;font-size:14px}
+th{text-align:left;font-size:12px;letter-spacing:.4px;color:#5c6e80;background:#edf2f6}
+td,th{border-bottom:1px solid var(--line);padding:12px 14px;vertical-align:middle}
+.table-scroll{overflow:auto;margin-bottom:22px}
+.badge{background:#e0f1e8;color:#28744c;font-size:12px;border-radius:20px;padding:5px 10px;white-space:nowrap}
+.badge.wait{background:#fff1d6;color:#886022}
+.badge.fail{background:#fde8ea;color:#9f2439}
+.upload{border:2px dashed #9cabb9;border-radius:10px;padding:24px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+label{display:block;font-size:13px;font-weight:600}
+input,select,textarea{display:block;width:100%;padding:10px 12px;border:1px solid #bac7d1;border-radius:6px;background:#fff;color:var(--ink);margin:5px 0 0}
+.success{background:#e7f2ec;border:1px solid #bcddc9;color:#256742;padding:12px;border-radius:7px}
+.error{color:#9f2439;background:#fff0f0;padding:11px;border-radius:7px}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;border-bottom:1px solid var(--line);margin:0 0 20px}
+.tab{background:transparent;border:0;border-bottom:2px solid transparent;color:var(--muted);font-weight:600;border-radius:0;padding:10px 4px}
+.tab.active,.tab.is-active{color:var(--forest);border-bottom-color:var(--forest)}
+dialog{border:1px solid #c5d0d9;border-radius:14px;width:min(1080px,calc(100vw - 48px));max-height:calc(100vh - 32px);overflow:auto;padding:30px;color:var(--ink)}
+dialog::backdrop{background:#0c233d66}
+.close{float:right;border:0;padding:0 10px;font-size:25px;background:transparent}
+#notice:empty{display:none}
+#notice{margin-bottom:18px}
+footer.note{color:#647589;font-size:12px;margin-top:30px}
+.wire{--forest:#4a4a4a;--navy:#4a4a4a;--ink:#222;--muted:#555;--line:#999;--paper:#fff;filter:grayscale(1)}
+.wire .panel,.wire .kpi,.wire button,.wire nav a,.wire input,.wire select,.wire dialog{border-radius:0}
+.login-wrap{max-width:520px;margin:40px auto}
+.cadastro-toolbar{display:flex;flex-wrap:nowrap;align-items:flex-end;justify-content:space-between;gap:16px}
+.cadastro-busca{width:50%;flex:0 0 50%;min-width:0}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+.icone-abrir,.icone-salvar{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;padding:0;border:0;border-radius:8px;background:transparent;color:var(--forest)}
+.icone-salvar:disabled{color:var(--muted);opacity:.45}
+.icone-abrir svg,.icone-salvar svg{width:22px;height:22px}
+.fornecedor-celula select{min-width:180px;max-width:280px;min-height:36px;margin:0}
+.acoes-linha,.acoes-cadastro,.produto-nome-linha{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.produto-nome-linha{justify-content:space-between}
+.produto-grupo-nome td{border-bottom:0;padding-bottom:4px;font-weight:600}
+.produto-grupo-dados td{color:#53657a}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.qr-box{width:180px;height:180px;border:8px solid var(--forest);display:grid;place-items:center;font-size:12px;text-align:center;color:var(--muted);background:repeating-linear-gradient(90deg,#10233e 0 8px,#fff 8px 16px),repeating-linear-gradient(#10233e 0 8px,#fff 8px 16px);background-size:16px 16px}
+.campo-lookup{display:flex;gap:8px;align-items:end}
+.campo-lookup input{flex:1}
+.armazenamento{display:flex;gap:24px;align-items:center}
+.rosca{width:120px;height:120px}
+.empty{padding:28px;text-align:center;color:#647589}
+.file-list{padding-left:20px}
+.file-list li{display:flex;justify-content:space-between;gap:12px;margin:6px 0}
+@media(max-width:900px){
+  .shell{grid-template-columns:1fr}
+  nav{display:flex;overflow:auto;padding:10px}
+  nav a{white-space:nowrap;margin:0;font-size:12px}
+  main{padding:20px}
+  .kpi-grid,.kpi-grid.three,.split,.row{grid-template-columns:1fr}
+  header.top{padding:0 15px}
+  .cadastro-toolbar{flex-wrap:wrap}
+  .cadastro-busca{width:100%;flex-basis:100%}
+  .user-copy span{display:none}
+}
+</style>
+</head>
+<body>
+<div class="meta">
+  <span>PROTÓTIPO ACADÊMICO · Dados fictícios · Ações simuladas, sem conexão com a API</span>
+  <div><button type="button" id="wire">Wireframe</button> <button type="button" id="reset">Reiniciar dados</button></div>
+</div>
+<div id="app"></div>
+<dialog id="editor">
+  <button class="close" type="button" aria-label="Fechar" onclick="fecharModal()">×</button>
+  <h2 id="modal-title"></h2>
+  <p class="muted" id="modal-help"></p>
+  <div id="modal-body"></div>
+</dialog>
 <script>
-const routes=[['dashboard','Indicadores'],['novo','Adicionar Recibo / NF'],['recibos','Listar Recibo / NF'],['compras','Compras'],['fornecedores','Fornecedores / Prestadores'],['produtos','Produtos/Serviços'],['relatorios','Relatório']];
-const initial={fornecedores:[{id:'FOR001',nome:'Fornecedor Exemplo TCC',razao:'Empresa de Demonstração',documento:'Não informado',telefone:'',endereco:'Tietê / SP',recibo:'REC001'}],produtos:[{id:'PRO001',nome:'Papel A4',unidade:'un',valor:'25.00',recibo:'REC001',sinonimos:'Resma A4'}],servicos:[{id:'SER001',nome:'Manutenção de equipamento',unidade:'un',valor:'120.00',recibo:''}],recibos:[{id:'REC001',arquivo:'recibo-exemplo.pdf',status:'Processado',total:50,fornecedor:'Fornecedor Exemplo TCC'}]};
-let db=JSON.parse(JSON.stringify(initial)),tipo='produtos',editing=null,route='dashboard';
-const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const brl=v=>Number(v||0).toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
-const el=id=>document.getElementById(id);const input=(name,label,value='',extra='')=>`<label>${label}<input name="${name}" value="${esc(value)}" ${extra}></label>`;
-function notice(t,error=false){el('notice').innerHTML=t?`<div class="${error?'error':'success'}">${esc(t)}</div>`:''}
-function go(r){location.hash=r; if(route===r)render()}
-function table(headers,rows){return `<table><thead><tr>${headers.map(h=>`<th>${h}</th>`).join('')}</tr></thead><tbody>${rows.length?rows.map(r=>`<tr>${r.map(c=>`<td>${c}</td>`).join('')}</tr>`).join(''):`<tr><td colspan="${headers.length}" class="empty">Nenhum registro encontrado.</td></tr>`}</tbody></table>`}
-function render(){route=location.hash.slice(1)||'dashboard';el('nav').innerHTML=routes.map(([id,label])=>`<a href="#${id}" class="${route===id?'active':''}">${label}</a>`).join('');el('title').textContent=routes.find(r=>r[0]===route)?.[1]||'Entrar';notice('');let h='';
- if(route==='dashboard'){h=`<div class="toolbar"><label>Mês<select><option>Setembro</option></select></label><label>Ano<select><option>2026</option></select></label></div><div class="cards"><div class="card"><span class="muted">Documentos recebidos</span><strong>${db.recibos.length}</strong></div><div class="card"><span class="muted">Compras processadas</span><strong>${db.recibos.filter(r=>r.status==='Processado').length}</strong></div><div class="card"><span class="muted">Total de compras</span><strong>${brl(db.recibos.reduce((s,r)=>s+r.total,0))}</strong></div></div><div class="panel" style="margin-top:22px"><h2>Documentos e armazenamento</h2><p class="muted">Acompanhe o uso e envie novos recibos ou notas fiscais.</p><div class="bar"><span></span></div><p>Exemplo visual de uso · Limite previsto de 1 GB por usuário</p><button class="primary" onclick="go('novo')">Adicionar Recibo / NF</button></div><div class="panel"><h2>Últimos documentos</h2>${receiptTable(db.recibos.slice(-3))}</div>`}
- else if(route==='novo'){h=`<div class="panel"><h2>Enviar PDF ou imagens</h2><p class="muted">Cada arquivo pode ter até 50 MB. O processamento é acompanhado em Listar Recibo / NF.</p><div class="upload"><strong>Selecione os comprovantes</strong><br><input id="files" type="file" accept="application/pdf,image/jpeg,image/png,image/webp" multiple><p class="muted">PDF, JPG, PNG ou WebP</p></div><ul id="file-list" class="file-list"></ul><div class="toolbar" style="margin-top:20px"><button class="primary" id="process">Enviar e processar</button><button onclick="capture()">Capturar pelo celular</button></div></div><div class="panel"><h2>O que acontece após o envio</h2><p>O documento entra em processamento. Depois, a compra fica disponível para conferência, com fornecedor, itens e totais.</p></div>`}
- else if(route==='recibos'||route==='compras'){h=`<div class="toolbar right"><p class="muted">${route==='recibos'?'Documentos enviados e situação do processamento.':'Compras formadas a partir dos comprovantes.'}</p><button class="primary" onclick="go('novo')">Adicionar Recibo / NF</button></div><div class="panel">${receiptTable(db.recibos)}</div>`}
- else if(route==='fornecedores'){h=`<div class="toolbar cadastro-toolbar"><label class="cadastro-busca">Buscar<input id="catalog-search" placeholder="Nome, razão social, CPF/CNPJ ou código"></label><button class="primary" onclick="edit('fornecedores')">Novo</button></div><div class="panel catalog-panel">${table(['Código','Nome','Razão social','Ações'],db.fornecedores.map(f=>[f.id,esc(f.nome),esc(f.razao),actions('fornecedores',f.id)]))}</div>`}
- else if(route==='produtos'){h=`<div class="toolbar cadastro-toolbar"><label class="cadastro-busca">Buscar<input id="catalog-search" placeholder="Nome, código ou marca"></label><button class="primary" onclick="edit(tipo)">Novo ${tipo==='produtos'?'produto':'serviço'}</button></div><div class="tabs"><button class="${tipo==='produtos'?'active':''}" onclick="tipo='produtos';render()">Produtos</button><button class="${tipo==='servicos'?'active':''}" onclick="tipo='servicos';render()">Serviços</button></div><div class="panel catalog-panel">${table(['Código','Nome','Unidade','Valor unitário','Ações'],db[tipo].map(p=>[p.id,esc(p.nome),p.unidade,brl(p.valor),actions(tipo,p.id)]))}</div>`}
- else if(route==='relatorios'){h=`<div class="panel"><div class="row">${input('inicio','Início','2026-09-01','type="date"')}${input('fim','Fim','2026-09-30','type="date"')}</div><div class="toolbar"><button class="primary" onclick="notice('Consulta demonstrativa atualizada.')">Consultar</button><button onclick="csv()">Exportar CSV</button><button onclick="notice('A exportação Excel está prevista na aplicação. Neste protótipo, utilize CSV para baixar os dados demonstrativos.')">Exportar Excel</button></div>${table(['Recibo','Fornecedor','Descrição','Quantidade','Total'],db.recibos.map(r=>[r.id,esc(r.fornecedor),'Papel A4','2',brl(r.total)]))}</div>`}
- else{h=`<div class="panel login"><h1>Autonomous Audit</h1><p class="muted">Acesso demonstrativo</p><form id="login">${input('email','E-mail','avaliador@example.com','type="email" required')}${input('senha','Senha','demonstracao','type="password" required')}<button class="primary" type="submit">Entrar</button></form></div>`}
- el('content').innerHTML=h;
- if(el('catalog-search'))el('catalog-search').oninput=e=>{const q=e.target.value.trim().toLocaleLowerCase('pt-BR');const data=db[route==='fornecedores'?'fornecedores':tipo];document.querySelectorAll('.catalog-panel tbody tr').forEach(tr=>{const item=data.find(x=>x.id===tr.cells[0]?.textContent);if(item)tr.hidden=!Object.values(item).join(' ').toLocaleLowerCase('pt-BR').includes(q)})};
- if(route==='novo'){el('files').onchange=()=>el('file-list').innerHTML=[...el('files').files].map(f=>`<li>${esc(f.name)}</li>`).join('');el('process').onclick=processFiles}
- if(el('login'))el('login').onsubmit=e=>{e.preventDefault();go('dashboard')};
+const ICONE_RECIBO = '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 3.5h10a1.2 1.2 0 0 1 1.2 1.2V20l-2.1-1.2-2.1 1.2-2-1.2-2 1.2-2.1-1.2-2.1 1.2V4.7A1.2 1.2 0 0 1 7 3.5Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M9 8h6M9 11.5h6M9 15h4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>';
+const ICONE_SALVAR = '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 5.5A1.5 1.5 0 0 1 6.5 4h9.2L19 7.3V18.5A1.5 1.5 0 0 1 17.5 20h-11A1.5 1.5 0 0 1 5 18.5v-13Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M8 4.5V9h8V4.5M8 20v-6h8v6" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>';
+const NAV = [
+  ['dashboard','Indicadores'],
+  ['novo','Adicionar Recibo / NF'],
+  ['recibos','Listar Recibo / NF'],
+  ['compras','Compras'],
+  ['fornecedores','Fornecedores / Prestadores'],
+  ['produtos','Produtos/Serviços'],
+  ['relatorios','Relatório']
+];
+const CONFIRMA_EXCLUSAO_RECIBO = 'Excluir este recibo/NF e os dados vinculados (compra, itens, arquivos e produtos/serviços deste documento)? Se o fornecedor não tiver outros recibos, ele também será excluído. Esta ação não pode ser desfeita.';
+const initial = {
+  usuario: {nome:'Avaliador', email:'avaliador@example.com'},
+  fornecedores: [
+    {id:'FOR001', codigo:'42C6F612', nome:'Supermercado Pizzol Ltda – EPP', razao:'Supermercado Pizzol Ltda – EPP', documento:'11.222.333/0001-44', telefone:'(11) 4000-0000', cep:'01001-000', endereco:'Rua das Flores, 100 – São Paulo/SP', vinculado:true},
+    {id:'FOR002', codigo:'BCFCFBCE', nome:'Google Cloud Brasil', razao:'Google Cloud Brasil Computação e Serviços de Dados Ltda', documento:'25.012.398/0001-07', telefone:'', cep:'04543-000', endereco:'São Paulo/SP', vinculado:true},
+    {id:'FOR003', codigo:'8E3A68C7', nome:'Alexandre Novaes Iosimura Tecnologia-ME', razao:'Alexandre Novaes Iosimura Tecnologia-ME', documento:'26.994.686/0001-77', telefone:'', cep:'', endereco:'', vinculado:false}
+  ],
+  produtos: [
+    {id:'PRO001', codigo:'F94235B2', nome:'Pão Francês KG', unidade:'kg', valor:7.95, liquido:7.95, reciboId:'REC001', marca:'Padaria', vinculado:true},
+    {id:'PRO002', codigo:'73B5BACE', nome:'Conjunto c/6 copos Lights L.Drink 300 ml', unidade:'un', valor:29.9, liquido:29.9, reciboId:'REC002', marca:'Lights', vinculado:true}
+  ],
+  servicos: [
+    {id:'SER001', codigo:'51448333', nome:'Serviços de hospedagem, armazenamento e processamento de dados', unidade:'un', valor:195.5, liquido:195.5, reciboId:'REC003', vinculado:true},
+    {id:'SER002', codigo:'2876C051', nome:'Suporte técnico, instalação e manutenção', unidade:'h', valor:180, liquido:180, reciboId:'', vinculado:false}
+  ],
+  recibos: [
+    {id:'REC001', codigo:'1FC18525', data:'07/10/2026', dataCompra:'07/10/2026', arquivo:'recibo-pao.pdf', status:'Processado', total:7.95, subtotal:7.95, descontos:0, acrescimos:0, fornecedorId:'FOR001', tipoDoc:'Recibo', tipoItem:'Produto', extracao:'Dados extraídos.', paginas:1, pagamento:'Pix', telefone:'(11) 4000-0000', endereco:'Rua das Flores, 100'},
+    {id:'REC002', codigo:'03BBC408', data:'06/10/2026', dataCompra:'06/10/2026', arquivo:'nf-98965.pdf', status:'Processado', total:29.9, subtotal:29.9, descontos:0, acrescimos:0, fornecedorId:'FOR001', tipoDoc:'Nota fiscal', tipoItem:'Produto', extracao:'Dados extraídos.', paginas:1, pagamento:'Cartão', telefone:'(11) 4000-0000', endereco:'Rua das Flores, 100'},
+    {id:'REC003', codigo:'52D94F9B', data:'05/10/2026', dataCompra:'05/10/2026', arquivo:'nfe-19505089.pdf', status:'Processado', total:195.5, subtotal:195.5, descontos:0, acrescimos:0, fornecedorId:'FOR002', tipoDoc:'Nota fiscal', tipoItem:'Serviço', extracao:'Dados extraídos.', paginas:2, pagamento:'Boleto', telefone:'', endereco:'São Paulo/SP'}
+  ]
+};
+let db = JSON.parse(JSON.stringify(initial));
+let route = 'dashboard';
+let tipoLista = 'produtos';
+let abaFornecedor = 'dados';
+let abaProduto = 'identificacao';
+let abaConfig = 'perfil';
+let editing = null;
+let edicoesFornecedor = {};
+let arquivosLocais = [];
+let qrVisivel = false;
+let tokenApi = '';
+let filtroCadastro = '';
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const brl = v => Number(v || 0).toLocaleString('pt-BR', {style:'currency', currency:'BRL'});
+const el = id => document.getElementById(id);
+function notice(t, error) {
+  const box = el('notice');
+  if (!box) return;
+  box.innerHTML = t ? `<div class="${error ? 'error' : 'success'}">${esc(t)}</div>` : '';
 }
-function actions(t,id){return `<button onclick="edit('${t}','${id}')">Editar</button><button class="danger" onclick="removeItem('${t}','${id}')">Excluir</button>`}
-function receiptTable(rs){return table(['<span class="sr-only">Abrir</span>','Código','Documento','Situação','Total','Ações'],rs.map(r=>[`<button class="icon-open" title="Visualizar recibo / NF" aria-label="Visualizar ${esc(r.id)}" onclick="detail('${r.id}')"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2V3ZM9 8h6M9 12h6M9 16h4" stroke="currentColor" stroke-width="1.7"/></svg></button>`,r.id,esc(r.arquivo),`<span class="badge ${r.status==='Processando'?'wait':''}">${r.status}</span>`,brl(r.total),`<button onclick="detail('${r.id}')">Detalhes</button>`]))}
-function receiptSelect(value){return `<label>Recibo / NF<select name="recibo"><option value="">Sem vínculo</option>${db.recibos.map(r=>`<option value="${r.id}" ${value===r.id?'selected':''}>${r.id} · ${esc(r.arquivo)}</option>`).join('')}</select></label>`}
-function edit(t,id){editing={t,id};const d=db[t].find(x=>x.id===id)||{};el('modal-title').textContent=(id?'Editar ':'Novo ')+(t==='fornecedores'?'fornecedor / prestador':t==='produtos'?'produto':'serviço');el('form-error').innerHTML='';el('edit-form').style.display='block';el('edit-form').querySelector('button.primary').style.display='';
- let h=`<div class="row">${input('nome','Nome',d.nome,'required maxlength="200"')}${t==='fornecedores'?input('razao','Razão social',d.razao):`<label>Unidade<select name="unidade">${['un','kg','l','m','h','cx'].map(u=>`<option ${d.unidade===u?'selected':''}>${u}</option>`).join('')}</select></label>`}`;
- if(t==='fornecedores')h+=input('documento','CPF/CNPJ',d.documento)+input('telefone','Telefone',d.telefone)+input('endereco','Endereço',d.endereco);
- else h+=input('valor','Valor unitário',d.valor,'type="number" step="0.01" min="0"')+(t==='produtos'?input('sinonimos','Sinônimos separados por vírgula',d.sinonimos):'');
- h+=receiptSelect(d.recibo)+'</div>';el('fields').innerHTML=h;el('research-supplier').hidden=t!=='fornecedores';el('research-supplier').disabled=!el('edit-form').elements.nome.value.trim();el('edit-form').elements.nome.oninput=()=>el('research-supplier').disabled=!el('edit-form').elements.nome.value.trim();el('editor').showModal();}
-function researchSupplier(){
- if(editing?.t!=='fornecedores')return;const fields=el('edit-form').elements;const nome=fields.nome.value.trim();
- if(!nome){el('form-error').innerHTML='<p class="error">Informe o nome para pesquisar.</p>';return}
- if(nome.toLocaleLowerCase('pt-BR').includes('sem resultado')){el('form-error').innerHTML='<p class="error">Simulação de HTTP 404: a pesquisa não encontrou informações utilizáveis. O formulário foi preservado.</p>';return}
- const sugestao={razao:'Empresa de Demonstração TCC',documento:'[Documento fictício]',telefone:'(00) 0000-0000',endereco:'Endereço fictício para demonstração'};
- for(const [key,value]of Object.entries(sugestao))if(!fields[key].value.trim())fields[key].value=value;
- el('form-error').innerHTML='<p class="success">Pesquisa simulada pelo nome. Campos existentes foram preservados. Confira antes de Salvar.</p>';
+function go(r) {
+  location.hash = r;
 }
-el('research-supplier').onclick=researchSupplier;
-el('edit-form').onsubmit=e=>{e.preventDefault();if(!editing)return;const form=Object.fromEntries(new FormData(e.target));if(!form.nome?.trim()){el('form-error').innerHTML='<p class="error">Informe o nome.</p>';return}const {t,id}=editing; if(id)db[t]=db[t].map(x=>x.id===id?{...x,...form}:x);else db[t].push({...form,id:(t==='fornecedores'?'FOR':t==='produtos'?'PRO':'SER')+String(Date.now()).slice(-6)});el('editor').close();render();notice('Cadastro salvo na demonstração.')};
-function removeItem(t,id){if(!confirm('Excluir este cadastro?'))return;let d=db[t].find(x=>x.id===id);if(id==='FOR001'||id==='PRO001'){notice('Não é possível excluir: há compras ou itens vinculados a este cadastro.',true);return}db[t]=db[t].filter(x=>x.id!==id);render();notice('Cadastro excluído na demonstração.')}
-function processFiles(){const files=[...el('files').files];if(!files.length){notice('Selecione ao menos um arquivo.',true);return}if(files.some(f=>!f.size||f.size>50*1024*1024)){notice('O arquivo deve conter dados e ter até 50 MB.',true);return}if(files.some(f=>!['application/pdf','image/jpeg','image/png','image/webp'].includes(f.type))){notice('Formato de arquivo não permitido.',true);return}const id='REC'+String(Date.now()).slice(-6);db.recibos.push({id,arquivo:files.map(f=>f.name).join(', '),status:'Processando',total:50,fornecedor:'Fornecedor Exemplo TCC'});go('recibos');setTimeout(()=>{const r=db.recibos.find(r=>r.id===id);if(r){r.status='Processado';if(['recibos','compras','dashboard'].includes(route)){render();notice('Processamento simulado concluído. Confira a compra em Detalhes.')}}},700)}
-function detail(id){el('research-supplier').hidden=true;const r=db.recibos.find(r=>r.id===id);el('modal-title').textContent='Compra '+id;editing=null;el('edit-form').style.display='block';el('edit-form').querySelector('button.primary').style.display='none';el('fields').innerHTML=`<p><strong>Fornecedor</strong> · ${esc(r.fornecedor)}</p><p><strong>Arquivo</strong> · ${esc(r.arquivo)}</p><p><strong>Tipo</strong> · Recibo / Produto</p>${table(['Item','Quantidade','Unitário','Total'],[['Papel A4','2',brl(25),brl(50)]])}<p><strong>Total ${brl(r.total)}</strong></p><p class="muted">Dados fictícios para validar a navegação. O protótipo não executa OCR.</p>`;el('form-error').innerHTML='';el('editor').showModal()}
-function capture(){notice('Na aplicação, esta ação cria uma sessão temporária e um QR para o celular. Nesta demonstração, selecione uma imagem para simular a captura.')}
-function csv(){const rows=[['Recibo','Fornecedor','Total'],...db.recibos.map(r=>[r.id,r.fornecedor,r.total])];const blob=new Blob(['\ufeff'+rows.map(r=>r.map(c=>'"'+String(c).replaceAll('"','""')+'"').join(';')).join('\r\n')],{type:'text/csv;charset=utf-8'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='relatorio-demonstracao.csv';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
-el('wire').onclick=()=>{document.body.classList.toggle('wire');el('wire').textContent=document.body.classList.contains('wire')?'Visual da aplicação':'Wireframe'};el('reset').onclick=()=>{db=JSON.parse(JSON.stringify(initial));render();notice('Dados de demonstração reiniciados.')};el('exit').onclick=()=>go('login');window.onhashchange=render;render();
-</script></body></html>
+function fornecedor(id) {
+  return db.fornecedores.find(f => f.id === id);
+}
+function recibo(id) {
+  return db.recibos.find(r => r.id === id);
+}
+function qtdRecibos(fid) {
+  return db.recibos.filter(r => r.fornecedorId === fid).length;
+}
+function badge(status) {
+  const cls = status === 'Processando' ? 'wait' : status.includes('Falha') ? 'fail' : '';
+  return `<span class="badge ${cls}">${esc(status)}</span>`;
+}
+function iconeAbrir(id) {
+  return `<button class="icone-abrir" type="button" title="Visualizar recibo / NF" aria-label="Visualizar ${id}" onclick="detail('${id}')">${ICONE_RECIBO}</button>`;
+}
+function table(headers, rows, extra='') {
+  return `<div class="table-scroll"><table ${extra}><thead><tr>${headers.map(h => `<th>${h}</th>`).join('')}</tr></thead><tbody>${rows.length ? rows.map(r => `<tr>${r.map(c => `<td>${c}</td>`).join('')}</tr>`).join('') : `<tr><td colspan="${headers.length}" class="empty">Nenhum registro encontrado.</td></tr>`}</tbody></table></div>`;
+}
+function shell(title, body) {
+  const logado = route !== 'login';
+  if (!logado) {
+    return `<main><div class="login-wrap">${body}<footer class="note">Projeto Integrado · Alexandre Novaes Iosimura</footer></div></main>`;
+  }
+  return `<header class="top">
+    <a class="brand" href="#dashboard"><img src="favicon.svg" alt=""><span>canada<small>software</small></span></a>
+    <div class="user-menu" id="user-menu">
+      <button class="user-menu-trigger" type="button" aria-haspopup="menu" aria-expanded="false" id="user-trigger">
+        <span class="avatar">A</span>
+        <div class="user-copy"><strong>${esc(db.usuario.nome)}</strong><span>${esc(db.usuario.email)}</span></div>
+        <span class="caret" aria-hidden="true">▾</span>
+      </button>
+      <div class="user-menu-panel" id="user-panel" hidden role="menu">
+        <a href="#configuracoes" role="menuitem">Configurações</a>
+        <button type="button" role="menuitem" id="sair">Sair</button>
+      </div>
+    </div>
+  </header>
+  <div class="shell">
+    <nav>${NAV.map(([id,label]) => `<a href="#${id}" class="${route===id?'active':''}">${label}</a>`).join('')}</nav>
+    <main>
+      <div class="kicker">AUTONOMOUS AUDIT</div>
+      <h1>${title}</h1>
+      <div id="notice" role="status"></div>
+      ${body}
+      <footer class="note">Projeto Integrado · Alexandre Novaes Iosimura · Navegação alinhada à aplicação publicada</footer>
+    </main>
+  </div>`;
+}
+function renderDashboard() {
+  const processados = db.recibos.filter(r => r.status === 'Processado').length;
+  const processando = db.recibos.filter(r => r.status === 'Processando').length;
+  const falhas = db.recibos.filter(r => r.status.includes('Falha')).length;
+  const total = db.recibos.reduce((s,r) => s + r.total, 0);
+  const porForn = db.fornecedores.map(f => {
+    const rs = db.recibos.filter(r => r.fornecedorId === f.id);
+    return {nome:f.nome, qtd:rs.length, total:rs.reduce((s,r)=>s+r.total,0)};
+  }).filter(x => x.qtd);
+  return shell('Indicadores de uso', `
+    <p>Dados extraídos dos documentos de operações realizadas : compras, notas fiscais e recibos.</p>
+    <div class="toolbar">
+      <label>Tipo Data<select id="mes"><option>Outubro</option><option>Setembro</option></select></label>
+      <label>Ano<select id="ano"><option>2026</option><option>2025</option></select></label>
+    </div>
+    <div class="kpi-grid">
+      <a class="kpi" href="#recibos"><span>Recibos</span><strong>${db.recibos.length}</strong></a>
+      <a class="kpi" href="#recibos"><span>Processados</span><strong>${processados}</strong></a>
+      <div class="kpi"><span>Processando</span><strong>${processando}</strong></div>
+      <div class="kpi"><span>Total extraído</span><strong>${brl(total)}</strong></div>
+    </div>
+    <div class="kpi-grid three">
+      <a class="kpi" href="#recibos"><span>Falhas</span><strong>${falhas}</strong></a>
+      <div class="kpi"><span>Tokens utilizados</span><strong>12.480</strong></div>
+      <div class="kpi"><span>Custo IA</span><strong>R$ 0,42</strong></div>
+    </div>
+    <section class="panel">
+      <h2>Armazenamento</h2>
+      <div class="armazenamento">
+        <svg class="rosca" viewBox="0 0 140 140" role="img" aria-label="Uso de armazenamento 12%">
+          <circle cx="70" cy="70" r="54" fill="none" stroke="#e7edf2" stroke-width="12"/>
+          <circle cx="70" cy="70" r="54" fill="none" stroke="#10233e" stroke-width="12" stroke-dasharray="40 339" stroke-linecap="round" transform="rotate(-90 70 70)"/>
+          <text x="70" y="76" text-anchor="middle" font-size="18" font-weight="700">12%</text>
+        </svg>
+        <div>
+          <p><strong>128 MB de 1,00 GB</strong></p>
+          <p class="muted">Restam 896 MB para novos documentos.</p>
+        </div>
+      </div>
+    </section>
+    <section class="panel">
+      <h2>Por fornecedor / prestador</h2>
+      ${table(['Fornecedor / Prestador','Recibos','Total'], porForn.map(l => [esc(l.nome), l.qtd, brl(l.total)]))}
+    </section>`);
+}
+function renderNovo() {
+  const lista = arquivosLocais.map((n,i) => `<li><span>${esc(n)}</span><button type="button" onclick="removerArquivo(${i})">Remover</button></li>`).join('');
+  return shell('Adicionar Recibo / NF', `
+    <p>Envie uma ou mais imagens, ou um PDF (até 50 MB cada). PDF, JPG, PNG ou WebP. Cada imagem é analisada como uma compra; se o mesmo documento ocupar mais de uma foto, o reconhecimento agrupa essas páginas.</p>
+    <div class="split">
+      <section class="panel">
+        <h2>Arquivos</h2>
+        <div class="upload">
+          <input id="files" type="file" accept="application/pdf,image/jpeg,image/png,image/webp" multiple>
+        </div>
+        <ul id="file-list" class="file-list">${lista}</ul>
+        <button class="primary" type="button" id="enviar" ${arquivosLocais.length? '' : 'disabled'}>Enviar recibo</button>
+      </section>
+      <section class="panel">
+        <h2>Captura no celular</h2>
+        ${qrVisivel ? `<div class="qr-box">QR de demonstração</div><p class="muted">Aguardando o celular. 0 foto(s) recebida(s).</p>` : `<button class="ghost" type="button" id="gerar-qr">Gerar QR</button>`}
+      </section>
+    </div>`);
+}
+function renderRecibos() {
+  const rows = db.recibos.map(r => {
+    const sel = edicoesFornecedor[r.id] ?? r.fornecedorId ?? '';
+    const mudou = sel && sel !== (r.fornecedorId ?? '');
+    const opts = [`<option value="">Selecionar…</option>`]
+      .concat(db.fornecedores.map(f => `<option value="${f.id}" ${sel===f.id?'selected':''}>${esc(f.nome)}</option>`)).join('');
+    return [
+      iconeAbrir(r.id),
+      `<a href="#recibos" onclick="detail('${r.id}');return false;">${r.data}</a>`,
+      `<a href="#recibos" onclick="detail('${r.id}');return false;">${r.codigo}</a>`,
+      `<div class="fornecedor-celula"><select aria-label="Fornecedor do recibo ${r.codigo}" onchange="editarFornecedor('${r.id}', this.value)">${opts}</select></div>`,
+      `${esc(r.tipoDoc)} · ${esc(r.tipoItem)}`,
+      brl(r.total),
+      badge(r.status),
+      esc(r.extracao),
+      `<div class="acoes-linha">
+        <button class="icone-salvar" type="button" ${mudou?'':'disabled'} title="Salvar fornecedor" aria-label="Salvar fornecedor do recibo ${r.codigo}" onclick="salvarFornecedor('${r.id}')">${ICONE_SALVAR}</button>
+        <button class="danger" type="button" onclick="excluirRecibo('${r.id}')">Excluir</button>
+      </div>`
+    ];
+  });
+  return shell('Recibos e notas fiscais', `
+    <p>Arquivos enviados e extração dos dados. O lançamento da compra aparece no menu Compras.</p>
+    <p><button class="primary" type="button" onclick="go('novo')">Adicionar Recibo / NF</button></p>
+    ${table(['<span class="sr-only">Abrir</span>','Data','Código','Fornecedor / Prestador','Documento','Total','Status','Extração',''], rows)}`);
+}
+function renderCompras() {
+  const rows = db.recibos.map(r => {
+    const f = fornecedor(r.fornecedorId);
+    return [
+      `<a href="#compras" onclick="detail('${r.id}');return false;">${r.data}</a>`,
+      r.dataCompra,
+      `<a href="#compras" onclick="detail('${r.id}');return false;">${r.codigo}</a>`,
+      esc(r.tipoDoc),
+      esc(r.tipoItem),
+      r.paginas ?? '—',
+      esc(f?.nome ?? '—'),
+      esc(f?.documento ?? '—'),
+      esc(r.telefone || '—'),
+      esc(r.endereco || '—'),
+      esc(r.pagamento || '—'),
+      brl(r.subtotal),
+      brl(r.descontos),
+      brl(r.acrescimos),
+      brl(r.total),
+      `<a href="#" onclick="notice('PDF de demonstração. O protótipo não armazena o arquivo.');return false;">PDF</a>`,
+      badge(r.status)
+    ];
+  });
+  return shell('Compras', `
+    <p>Cada imagem reconhecida como compra gera um lançamento, com fornecedor ou prestador, valores e produtos ou serviços. Recibos e notas fiscais aparecem na mesma lista, com o tipo sinalizado.</p>
+    ${table(['Data envio','Data compra','Recibo','Recibo / NF','Item','Páginas','Fornecedor / Prestador','Documento','Telefone','Endereço','Pagamento','Subtotal','Descontos','Acréscimos','Total','PDF','Status'], rows)}`);
+}
+function renderFornecedores() {
+  const q = (el('catalog-search')?.value || '').trim().toLocaleLowerCase('pt-BR');
+  const visiveis = db.fornecedores.filter(f => !q || Object.values(f).join(' ').toLocaleLowerCase('pt-BR').includes(q));
+  const rows = visiveis.map(f => [
+    f.codigo,
+    esc(f.nome),
+    esc(f.razao || '—'),
+    `<button class="ghost" type="button" onclick="edit('fornecedores','${f.id}','recibos')">${qtdRecibos(f.id)}</button>`,
+    `<div class="acoes-cadastro">
+      <button class="ghost" type="button" onclick="edit('fornecedores','${f.id}')">Editar</button>
+      <button class="danger" type="button" onclick="removeItem('fornecedores','${f.id}')">Excluir</button>
+    </div>`
+  ]);
+  return shell('Fornecedores / Prestadores', `
+    <div class="toolbar cadastro-toolbar">
+      <label class="cadastro-busca">Buscar<input id="catalog-search" placeholder="Nome, razão social, CPF/CNPJ ou código"></label>
+      <button class="primary" type="button" onclick="edit('fornecedores')">Novo</button>
+    </div>
+    ${table(['Código','Nome','Razão social','Recibos / NF','Ações'], rows)}`);
+}
+function renderProdutos() {
+  const q = (el('catalog-search')?.value || '').trim().toLocaleLowerCase('pt-BR');
+  const lista = db[tipoLista].filter(p => !q || Object.values(p).join(' ').toLocaleLowerCase('pt-BR').includes(q));
+  const grupos = lista.map(p => `
+    <tbody class="produto-grupo">
+      <tr class="produto-grupo-nome"><td colspan="5"><div class="produto-nome-linha">
+        <span>${esc(p.nome)}</span>
+        <div class="acoes-cadastro">
+          <button class="ghost" type="button" onclick="edit('${tipoLista}','${p.id}')">Editar</button>
+          <button class="danger" type="button" onclick="removeItem('${tipoLista}','${p.id}')">Excluir</button>
+        </div>
+      </div></td></tr>
+      <tr class="produto-grupo-dados">
+        <td>${p.codigo}</td><td>${p.unidade}</td><td>${brl(p.valor)}</td><td>${brl(p.liquido)}</td>
+        <td>${p.reciboId ? `<a href="#recibos" onclick="detail('${p.reciboId}');return false;">${recibo(p.reciboId)?.codigo ?? p.reciboId}</a>` : '—'}</td>
+      </tr>
+    </tbody>`).join('') || `<tbody><tr><td colspan="5" class="empty">Nenhum cadastro encontrado.</td></tr></tbody>`;
+  return shell('Produtos / Serviços', `
+    <p>Os campos da linha da DANFE (unidade, valores) valem para produto e para serviço. A quantidade fica no item da compra.</p>
+    <div class="toolbar cadastro-toolbar">
+      <label class="cadastro-busca">Buscar<input id="catalog-search" placeholder="Nome, código ou marca"></label>
+      <button class="primary" type="button" onclick="edit(tipoLista)">Novo ${tipoLista==='produtos'?'produto':'serviço'}</button>
+    </div>
+    <div class="tabs">
+      <button class="tab ${tipoLista==='produtos'?'active':''}" type="button" onclick="tipoLista='produtos';render()">Produtos (${db.produtos.length})</button>
+      <button class="tab ${tipoLista==='servicos'?'active':''}" type="button" onclick="tipoLista='servicos';render()">Serviços (${db.servicos.length})</button>
+    </div>
+    <div class="table-scroll"><table>
+      <thead><tr><th>Código</th><th>Unid.</th><th>Valor unitário</th><th>Valor líquido</th><th>Recibo</th></tr></thead>
+      ${grupos}
+    </table></div>`);
+}
+function renderRelatorio() {
+  const opts = `<option value="">Todos</option>` + db.fornecedores.map(f => `<option value="${f.id}">${esc(f.nome)}</option>`).join('');
+  const blocos = db.recibos.map(r => {
+    const f = fornecedor(r.fornecedorId);
+    const itens = [...db.produtos, ...db.servicos].filter(p => p.reciboId === r.id);
+    return `<section class="panel">
+      <h2>Compra ${r.codigo} <span class="muted">${r.data} · ${esc(r.status)}</span></h2>
+      <p>Subtotal ${brl(r.subtotal)} · Descontos ${brl(r.descontos)} · Acréscimos ${brl(r.acrescimos)} · Total ${brl(r.total)} · ${esc(r.pagamento)} ·
+        <a href="#" onclick="notice('PDF de demonstração.');return false;">Ver PDF</a> ·
+        <button class="ghost" type="button" onclick="detail('${r.id}')">Visualizar</button></p>
+      <h3>Fornecedor / Prestador</h3>
+      <p>${esc(f?.nome ?? '—')}${f?.razao ? ` · ${esc(f.razao)}` : ''}${f?.documento ? ` · ${esc(f.documento)}` : ''}</p>
+      <h3>${r.tipoItem === 'Serviço' ? 'Serviços' : 'Produtos'}</h3>
+      ${itens.length ? table(['Item','Unidade','Valor unitário','Total'], itens.map(p => [esc(p.nome), p.unidade, brl(p.valor), brl(p.liquido)])) : '<p class="muted">Nenhum item extraído nesta compra.</p>'}
+    </section>`;
+  }).join('');
+  return shell('Relatório', `
+    <p>Hierarquia compra → fornecedor/prestador → produtos e serviços. A consulta, o CSV, o Excel e a API aceitam até 3 meses.</p>
+    <form class="toolbar" id="relatorio-form">
+      <label>Início<input type="datetime-local" name="inicio" value="2026-10-01T00:00" required></label>
+      <label>Fim<input type="datetime-local" name="fim" value="2026-10-08T23:59" required></label>
+      <label>Fornecedor / Prestador<select name="fornecedor">${opts}</select></label>
+      <button class="primary" type="submit">Consultar</button>
+      <button class="ghost" type="button" id="csv">Exportar CSV</button>
+      <button class="ghost" type="button" id="xlsx">Exportar Excel</button>
+      <button class="ghost" type="button" id="curl">Gerar curl</button>
+    </form>
+    <p class="muted">${db.recibos.length} compra(s) nesta chamada (limite 10000).</p>
+    ${blocos}`);
+}
+function renderConfig() {
+  return shell('Configurações', `
+    <div class="tabs">
+      <button class="tab ${abaConfig==='perfil'?'active':''}" type="button" onclick="abaConfig='perfil';render()">Perfil</button>
+      <button class="tab ${abaConfig==='api'?'active':''}" type="button" onclick="abaConfig='api';render()">API de relatório</button>
+    </div>
+    ${abaConfig==='perfil' ? `
+      <form class="panel" id="perfil-form">
+        <div class="row">
+          <label>Nome<input name="nome" value="${esc(db.usuario.nome)}" required></label>
+          <label>E-mail principal<input value="${esc(db.usuario.email)}" disabled></label>
+          <label>E-mail secundário<input name="email2" placeholder="opcional"></label>
+          <label>Telefone<input name="telefone" placeholder="(00) 00000-0000"></label>
+          <label>CEP<span class="campo-lookup"><input name="cep" placeholder="00000-000"><button class="ghost" type="button" id="buscar-cep">Buscar</button></span></label>
+          <label>UF<input name="uf" value="SP"></label>
+        </div>
+        <label>Endereço<textarea name="endereco" rows="3">São Paulo / SP</textarea></label>
+        <div class="toolbar" style="margin-top:16px"><button class="primary" type="submit">Salvar</button></div>
+      </form>` : `
+      <section class="panel">
+        <p>Gere um token para consultar o relatório pela API. Na aplicação o token expira; aqui a geração é simulada.</p>
+        <button class="primary" type="button" id="gerar-token">Gerar token</button>
+        ${tokenApi ? `<p><code>${esc(tokenApi)}</code></p><button class="ghost" type="button" id="copiar-token">Copiar</button>` : ''}
+      </section>`}`);
+}
+function renderLogin() {
+  return shell('Autonomous Audit', `
+    <div class="panel login-wrap" style="margin:0">
+      <h1>Autonomous Audit</h1>
+      <p class="muted">Acesso demonstrativo</p>
+      <form id="login">
+        <label>E-mail<input name="email" type="email" value="avaliador@example.com" required></label>
+        <label>Senha<input name="senha" type="password" value="demonstracao" required></label>
+        <div class="toolbar" style="margin-top:16px"><button class="primary" type="submit">Entrar</button></div>
+      </form>
+    </div>`);
+}
+function render() {
+  route = location.hash.slice(1) || 'dashboard';
+  document.body.classList.toggle('is-login', route === 'login');
+  let html = '';
+  if (route === 'login') html = renderLogin();
+  else if (route === 'dashboard') html = renderDashboard();
+  else if (route === 'novo') html = renderNovo();
+  else if (route === 'recibos') html = renderRecibos();
+  else if (route === 'compras') html = renderCompras();
+  else if (route === 'fornecedores') html = renderFornecedores();
+  else if (route === 'produtos') html = renderProdutos();
+  else if (route === 'relatorios') html = renderRelatorio();
+  else if (route === 'configuracoes') html = renderConfig();
+  else html = renderDashboard();
+  el('app').innerHTML = html;
+  ligar();
+}
+function ligar() {
+  const trigger = el('user-trigger');
+  const panel = el('user-panel');
+  if (trigger && panel) {
+    trigger.onclick = () => {
+      const aberto = !panel.hidden;
+      panel.hidden = aberto;
+      trigger.setAttribute('aria-expanded', String(!aberto));
+    };
+    el('sair').onclick = () => go('login');
+  }
+  const busca = el('catalog-search');
+  if (busca) {
+    busca.value = filtroCadastro;
+    busca.oninput = e => {
+      filtroCadastro = e.target.value;
+      const q = filtroCadastro.trim().toLocaleLowerCase('pt-BR');
+      const grupos = document.querySelectorAll('.produto-grupo');
+      const alvos = grupos.length ? grupos : document.querySelectorAll('.table-scroll tbody tr');
+      alvos.forEach(tr => {
+        tr.hidden = Boolean(q && !tr.innerText.toLocaleLowerCase('pt-BR').includes(q));
+      });
+    };
+  }
+  if (el('files')) {
+    el('files').onchange = () => {
+      arquivosLocais = [...el('files').files].map(f => f.name);
+      render();
+    };
+  }
+  if (el('enviar')) el('enviar').onclick = processFiles;
+  if (el('gerar-qr')) el('gerar-qr').onclick = () => { qrVisivel = true; render(); notice('QR de demonstração. Na aplicação o celular envia as fotos para o rascunho.'); };
+  if (el('relatorio-form')) {
+    el('relatorio-form').onsubmit = e => { e.preventDefault(); notice('Consulta demonstrativa atualizada.'); };
+    el('csv').onclick = csv;
+    el('xlsx').onclick = () => notice('A exportação Excel está prevista na aplicação. Neste protótipo, utilize CSV.');
+    el('curl').onclick = () => {
+      el('modal-title').textContent = 'curl da API de relatório';
+      el('modal-help').textContent = 'Comando demonstrativo. Substitua o token na aplicação real.';
+      el('modal-body').innerHTML = `<pre>curl -sS -X GET "https://autonomousauditapi.canada-software.com.br/v1/relatorios/itens" -H "Authorization: Bearer $AA_RELATORIO_TOKEN"</pre><button class="ghost" type="button" onclick="notice('Comando copiado na demonstração.');fecharModal()">Copiar</button>`;
+      el('editor').showModal();
+    };
+  }
+  if (el('login')) el('login').onsubmit = e => { e.preventDefault(); go('dashboard'); };
+  if (el('perfil-form')) el('perfil-form').onsubmit = e => {
+    e.preventDefault();
+    db.usuario.nome = e.target.nome.value.trim() || db.usuario.nome;
+    notice('Perfil salvo na demonstração.');
+    render();
+  };
+  if (el('buscar-cep')) el('buscar-cep').onclick = () => notice('Endereço preenchido pelo CEP. Confira antes de salvar.');
+  if (el('gerar-token')) el('gerar-token').onclick = () => { tokenApi = 'aa_demo_' + String(Date.now()).slice(-8); render(); notice('Token gerado na demonstração.'); };
+  if (el('copiar-token')) el('copiar-token').onclick = () => notice('Token copiado na demonstração.');
+}
+function fecharMenuFora(ev) {
+  const menu = el('user-menu');
+  const panel = el('user-panel');
+  const trigger = el('user-trigger');
+  if (!menu || !panel || panel.hidden) return;
+  if (!menu.contains(ev.target)) {
+    panel.hidden = true;
+    trigger?.setAttribute('aria-expanded', 'false');
+  }
+}
+function editarFornecedor(id, valor) {
+  edicoesFornecedor[id] = valor;
+  render();
+}
+function salvarFornecedor(id) {
+  const novo = edicoesFornecedor[id];
+  const r = recibo(id);
+  if (!r || !novo || novo === r.fornecedorId) return;
+  r.fornecedorId = novo;
+  delete edicoesFornecedor[id];
+  render();
+  notice('Fornecedor do recibo atualizado na demonstração.');
+}
+function excluirRecibo(id) {
+  if (!confirm(CONFIRMA_EXCLUSAO_RECIBO)) return;
+  const r = recibo(id);
+  db.recibos = db.recibos.filter(x => x.id !== id);
+  db.produtos = db.produtos.filter(p => p.reciboId !== id);
+  db.servicos = db.servicos.filter(p => p.reciboId !== id);
+  if (r?.fornecedorId && qtdRecibos(r.fornecedorId) === 0) {
+    db.fornecedores = db.fornecedores.filter(f => f.id !== r.fornecedorId);
+  }
+  render();
+  notice('Recibo e vínculos excluídos na demonstração.');
+}
+window.removerArquivo = i => { arquivosLocais.splice(i, 1); render(); };
+function fecharModal() {
+  el('editor').close();
+  editing = null;
+}
+function receiptSelect(value) {
+  return `<label>Recibo / NF<select name="recibo"><option value="">Sem vínculo</option>${db.recibos.map(r => `<option value="${r.id}" ${value===r.id?'selected':''}>${r.codigo} · ${esc(r.arquivo)}</option>`).join('')}</select></label>`;
+}
+function edit(t, id, aba) {
+  editing = {t, id};
+  const d = id ? (db[t].find(x => x.id === id) || {}) : {};
+  const novo = !id;
+  abaFornecedor = aba || 'dados';
+  abaProduto = 'identificacao';
+  if (t === 'fornecedores') {
+    el('modal-title').textContent = novo ? 'Novo cadastro' : 'Editar cadastro';
+    el('modal-help').textContent = novo
+      ? 'Inclua um fornecedor ou prestador de serviços. Recibos e notas fiscais são vinculados automaticamente na captura.'
+      : 'Atualize os dados deste fornecedor ou prestador e consulte os recibos vinculados.';
+    const recibosDo = db.recibos.filter(r => r.fornecedorId === id);
+    const corpoDados = `<form id="edit-form">
+      <div class="row">
+        <label>Nome<input name="nome" value="${esc(d.nome||'')}" required maxlength="200"></label>
+        <label>Razão social<input name="razao" value="${esc(d.razao||'')}"></label>
+        <label>CPF/CNPJ<input name="documento" value="${esc(d.documento||'')}"></label>
+        <label>Telefone<input name="telefone" value="${esc(d.telefone||'')}"></label>
+        <label>CEP<span class="campo-lookup"><input name="cep" value="${esc(d.cep||'')}" placeholder="00000-000"><button class="ghost" type="button" id="modal-cep">Buscar</button></span></label>
+      </div>
+      <label>Endereço<textarea name="endereco" rows="3">${esc(d.endereco||'')}</textarea></label>
+      <div id="form-error"></div>
+      <div class="toolbar" style="margin-top:16px">
+        <button class="primary" type="submit">${novo?'Incluir':'Salvar'}</button>
+        <button type="button" id="research-supplier" ${t==='fornecedores'?'':'hidden'}>Pesquisar na internet</button>
+        <button type="button" onclick="fecharModal()">Cancelar</button>
+      </div>
+    </form>`;
+    const corpoRecibos = recibosDo.length
+      ? table(['Código','Data','Total','Status'], recibosDo.map(r => [r.codigo, r.data, brl(r.total), badge(r.status)]))
+      : '<p class="muted">Nenhum recibo vinculado a este cadastro.</p>';
+    el('modal-body').innerHTML = `
+      ${id ? `<p class="muted">Código: ${d.codigo||id}</p>` : ''}
+      <div class="tabs">
+        <button class="tab ${abaFornecedor==='dados'?'active':''}" type="button" onclick="edit('fornecedores','${id||''}','dados')">Dados</button>
+        <button class="tab ${abaFornecedor==='recibos'?'active':''}" type="button" onclick="edit('fornecedores','${id||''}','recibos')">Recibos</button>
+      </div>
+      ${abaFornecedor==='recibos' ? corpoRecibos : corpoDados}`;
+  } else {
+    const ehServico = t === 'servicos';
+    el('modal-title').textContent = (novo ? 'Novo ' : 'Editar ') + (ehServico ? 'serviço' : 'produto');
+    el('modal-help').textContent = novo
+      ? 'Inclua o cadastro completo. Unidade e Recibo / NF usam lookup das opções do sistema.'
+      : 'Atualize os dados deste cadastro. O código interno não pode ser alterado.';
+    const unidades = ['un','kg','l','m','h','cx'].map(u => `<option ${d.unidade===u?'selected':''}>${u}</option>`).join('');
+    el('modal-body').innerHTML = `
+      ${id ? `<p class="muted">Código: ${d.codigo||id}</p>` : ''}
+      <div class="tabs">
+        <button class="tab ${abaProduto==='identificacao'?'active':''}" type="button">Identificação</button>
+        <button class="tab" type="button">Classificação fiscal</button>
+        <button class="tab" type="button">Valores e impostos</button>
+      </div>
+      <form id="edit-form">
+        <div class="row">
+          <label>Nome<input name="nome" value="${esc(d.nome||'')}" required maxlength="200"></label>
+          ${ehServico ? '' : `<label>Marca<input name="marca" value="${esc(d.marca||'')}"></label>`}
+          <label>Unidade<select name="unidade">${unidades}</select></label>
+          <label>Valor unitário<input name="valor" type="number" step="0.01" min="0" value="${esc(d.valor??'')}"></label>
+          ${receiptSelect(d.reciboId)}
+        </div>
+        <div id="form-error"></div>
+        <div class="toolbar" style="margin-top:16px">
+          <button class="primary" type="submit">${novo?'Incluir':'Salvar'}</button>
+          <button type="button" onclick="fecharModal()">Cancelar</button>
+        </div>
+      </form>`;
+  }
+  el('editor').showModal();
+  const form = el('edit-form');
+  if (form) form.onsubmit = salvarCadastro;
+  const research = el('research-supplier');
+  if (research) research.onclick = researchSupplier;
+  const cepBtn = el('modal-cep');
+  if (cepBtn) cepBtn.onclick = () => { form.endereco.value = 'Praça da Sé, 1 – São Paulo/SP'; notice('Endereço preenchido pelo CEP. Confira antes de salvar.'); };
+}
+function salvarCadastro(e) {
+  e.preventDefault();
+  if (!editing) return;
+  const form = Object.fromEntries(new FormData(e.target));
+  if (!form.nome?.trim()) {
+    el('form-error').innerHTML = '<p class="error">Informe o nome.</p>';
+    return;
+  }
+  const {t, id} = editing;
+  if (id) {
+    db[t] = db[t].map(x => x.id === id ? {...x, ...form, reciboId: form.recibo || x.reciboId} : x);
+  } else {
+    const prefix = t === 'fornecedores' ? 'FOR' : t === 'produtos' ? 'PRO' : 'SER';
+    db[t].push({
+      ...form,
+      id: prefix + String(Date.now()).slice(-6),
+      codigo: String(Date.now()).slice(-8).toUpperCase(),
+      vinculado: false,
+      liquido: Number(form.valor || 0),
+      reciboId: form.recibo || ''
+    });
+  }
+  fecharModal();
+  render();
+  notice('Cadastro salvo na demonstração.');
+}
+function researchSupplier() {
+  const fields = el('edit-form')?.elements;
+  if (!fields?.nome) return;
+  const nome = fields.nome.value.trim();
+  if (!nome) {
+    el('form-error').innerHTML = '<p class="error">Informe o nome para pesquisar.</p>';
+    return;
+  }
+  if (nome.toLocaleLowerCase('pt-BR').includes('sem resultado')) {
+    el('form-error').innerHTML = '<p class="error">Simulação de HTTP 404: a pesquisa não encontrou informações utilizáveis. O formulário foi preservado.</p>';
+    return;
+  }
+  if (!fields.razao.value.trim()) fields.razao.value = 'Empresa de Demonstração TCC';
+  if (!fields.documento.value.trim()) fields.documento.value = '00.000.000/0001-00';
+  if (!fields.telefone.value.trim()) fields.telefone.value = '(00) 0000-0000';
+  if (!fields.endereco.value.trim()) fields.endereco.value = 'Endereço fictício para demonstração';
+  el('form-error').innerHTML = '<p class="success">Pesquisa simulada pelo nome. Campos existentes foram preservados. Confira antes de Salvar.</p>';
+}
+function removeItem(t, id) {
+  const item = db[t].find(x => x.id === id);
+  if (!item) return;
+  if (!confirm(`Excluir ${item.nome}? Esta ação não pode ser desfeita.`)) return;
+  if (item.vinculado || item.reciboId) {
+    notice('Não é possível excluir: há compras ou itens vinculados a este cadastro.', true);
+    return;
+  }
+  db[t] = db[t].filter(x => x.id !== id);
+  render();
+  notice('Cadastro excluído na demonstração.');
+}
+function processFiles() {
+  if (!arquivosLocais.length) {
+    notice('Selecione imagens ou um PDF de até 50 MB.', true);
+    return;
+  }
+  const files = el('files') ? [...el('files').files] : [];
+  if (files.some(f => !f.size || f.size > 50 * 1024 * 1024)) {
+    notice('O arquivo deve conter dados e ter até 50 MB.', true);
+    return;
+  }
+  const id = 'REC' + String(Date.now()).slice(-6);
+  db.recibos.unshift({
+    id, codigo: id.slice(-8).toUpperCase(), data: new Date().toLocaleDateString('pt-BR'),
+    dataCompra: new Date().toLocaleDateString('pt-BR'), arquivo: arquivosLocais.join(', '),
+    status:'Processando', total:50, subtotal:50, descontos:0, acrescimos:0,
+    fornecedorId:'FOR001', tipoDoc:'Recibo', tipoItem:'Produto',
+    extracao:'Aguardando extração dos dados do documento...', paginas:1, pagamento:'', telefone:'', endereco:''
+  });
+  arquivosLocais = [];
+  qrVisivel = false;
+  go('recibos');
+  setTimeout(() => {
+    const r = recibo(id);
+    if (r) {
+      r.status = 'Processado';
+      r.extracao = 'Dados extraídos.';
+      if (['recibos','compras','dashboard'].includes(route)) {
+        render();
+        notice('Processamento simulado concluído. Confira a compra em Visualizar.');
+      }
+    }
+  }, 700);
+}
+function detail(id) {
+  const r = recibo(id);
+  if (!r) return;
+  const f = fornecedor(r.fornecedorId);
+  const itens = [...db.produtos, ...db.servicos].filter(p => p.reciboId === id);
+  editing = null;
+  el('modal-title').textContent = 'Compra ' + r.codigo;
+  el('modal-help').textContent = 'Dados fictícios para validar a navegação. O protótipo não executa OCR.';
+  el('modal-body').innerHTML = `
+    <p><strong>Fornecedor</strong> · ${esc(f?.nome ?? '—')}</p>
+    <p><strong>Arquivo</strong> · ${esc(r.arquivo)}</p>
+    <p><strong>Tipo</strong> · ${esc(r.tipoDoc)} · ${esc(r.tipoItem)}</p>
+    ${table(['Item','Quantidade','Unitário','Total'], itens.length ? itens.map(p => [esc(p.nome),'1', brl(p.valor), brl(p.liquido)]) : [['Item demonstrativo','1', brl(r.total), brl(r.total)]])}
+    <p><strong>Total ${brl(r.total)}</strong></p>
+    <div class="acoes-linha" style="margin-top:16px">
+      <button class="danger" type="button" onclick="fecharModal();excluirRecibo('${id}')">Excluir</button>
+      <button type="button" onclick="fecharModal()">Fechar</button>
+    </div>`;
+  el('editor').showModal();
+}
+function csv() {
+  const rows = [['Recibo','Fornecedor','Total'], ...db.recibos.map(r => [r.codigo, fornecedor(r.fornecedorId)?.nome ?? '', r.total])];
+  const blob = new Blob(['\ufeff' + rows.map(r => r.map(c => '"' + String(c).replaceAll('"','""') + '"').join(';')).join('\r\n')], {type:'text/csv;charset=utf-8'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'relatorio-demonstracao.csv';
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+}
+el('wire').onclick = () => {
+  document.body.classList.toggle('wire');
+  el('wire').textContent = document.body.classList.contains('wire') ? 'Visual da aplicação' : 'Wireframe';
+};
+el('reset').onclick = () => {
+  db = JSON.parse(JSON.stringify(initial));
+  edicoesFornecedor = {};
+  arquivosLocais = [];
+  qrVisivel = false;
+  tokenApi = '';
+  filtroCadastro = '';
+  render();
+  notice('Dados de demonstração reiniciados.');
+};
+document.addEventListener('mousedown', fecharMenuFora);
+window.onhashchange = render;
+window.edit = edit;
+window.detail = detail;
+window.removeItem = removeItem;
+window.editarFornecedor = editarFornecedor;
+window.salvarFornecedor = salvarFornecedor;
+window.excluirRecibo = excluirRecibo;
+window.fecharModal = fecharModal;
+if (!location.hash) location.hash = 'dashboard';
+else render();
+</script>
+</body>
+</html>
