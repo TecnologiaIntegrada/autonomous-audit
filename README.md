@@ -1,8 +1,8 @@
-# Autonomous Audit
+# Autonomous Audit: sistema web para extração e estruturação de dados de recibos e notas fiscais com inteligência artificial
 
 Sistema web de **gestão de recibos e notas fiscais**: o usuário envia PDF ou imagens, a extração estrutura fornecedor, itens e totais, e o resultado fica consultável em cadastros e relatório exportável (CSV/XLSX).
 
-Este repositório é a **apresentação pública do código** (TCC / avaliação). A operação contínua (Actions, secrets de produção, cluster) permanece nos repositórios **privados** de manutenção.
+Este repositório é a **apresentação pública do código** (TCC / avaliação) do projeto Autonomous Audit: sistema web para extração e estruturação de dados de recibos e notas fiscais com inteligência artificial.
 
 **Repositório:** https://github.com/TecnologiaIntegrada/autonomous-audit
 
